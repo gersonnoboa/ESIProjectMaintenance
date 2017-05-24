@@ -5,9 +5,10 @@ package com.maintenance.works.domain.model;
  */
 
 
-import com.example.reservations.domain.model.PlantReservation;
+import com.maintenance.inventory.domain.model.PlantReservation;
 import lombok.Getter;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
