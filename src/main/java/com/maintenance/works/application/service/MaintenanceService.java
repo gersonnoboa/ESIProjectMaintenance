@@ -28,7 +28,7 @@ public class MaintenanceService {
         runInterceptors();
 
         PlantInventoryItemDTO[] plants = restTemplate.getForObject(
-                "http://localhost:8080/api/inventory/plants?name=exc&startDate=2018-01-10&endDate=2018-01-20",
+                "http://localhost:8080/api/inventory/plants?name=&startDate=2018-01-10&endDate=2018-01-20",
                 PlantInventoryItemDTO[].class);
         System.out.println("Plants: " + Arrays.asList(plants));
 

@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>New Plant</title>
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"></link>
+</head>
+<body>
+
+<div class="container">
+    <div class="panel panel-default">
+        <div class="panel-heading">Create a new Maintenance Task</div>
+        <div class="panel-body">
+            <form class="form-horizontal" th:object="${task}" th:method="post" th:action="@{/dashboard/catalog/query}">
+                <div class="form-group">
+                    <div class="col-sm-4"><b>Plant Description</b></div>
+                    <div class="col-sm-8" th:text="${task.description}"></div>
+                </div>
+                <!--<div class="form-group">-->
+                    <!--<div class="col-sm-4"><b>Start date</b></div>-->
+                    <!--<input type="date" class="form-control" id="rental-start-date" th:field="*{task.reservation.schedule.startDate}"></input>-->
+                <!--</div>-->
+                <!--<div class="form-group">-->
+                    <!--<div class="col-sm-4"><b>End date</b></div>-->
+                    <!--<input type="date" class="form-control" id="rental-end-date" th:field="*{task.reservation.schedule.endDate}"></input>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <div class="col-sm-4"><b>Price</b></div>
+                    <div id="total-cost" class="col-sm-8" th:text="${task.price}"></div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-4"><b>Status</b></div>
+                    <div class="col-sm-8">
+                        <select name="status">
+                            <option value="preventive">Preventive</option>
+                            <option value="corrective">Corrective</option>
+                            <option value="operative">Operative</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>

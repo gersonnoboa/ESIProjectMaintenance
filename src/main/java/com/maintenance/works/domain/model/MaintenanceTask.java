@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 public class MaintenanceTask {
 
     @Id
-    String id;
+    String _id;
 
     String description;
 
@@ -37,7 +37,7 @@ public class MaintenanceTask {
 
     public static MaintenanceTask of(String id, String description, TypeOfWork typeOfWork, BigDecimal price, PlantReservation reservation){
         MaintenanceTask task = new MaintenanceTask();
-        task.id = id;
+        task._id = id;
         task.description = description;
         task.type_of_work = typeOfWork;
         task.price = price;

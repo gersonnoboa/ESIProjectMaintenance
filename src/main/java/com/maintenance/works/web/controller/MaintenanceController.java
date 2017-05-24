@@ -1,7 +1,9 @@
 package com.maintenance.works.web.controller;
 
+import com.maintenance.common.application.dto.PlantNotFoundException;
 import com.maintenance.inventory.application.dto.PlantInventoryItemDTO;
 import com.maintenance.inventory.domain.model.PlantInventoryItem;
+import com.maintenance.works.application.dto.MaintenanceTaskDTO;
 import com.maintenance.works.application.service.MaintenanceService;
 import com.maintenance.works.domain.model.MaintenanceTask;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,5 +36,11 @@ public class MaintenanceController {
         List<PlantInventoryItemDTO> plants = maintenanceService.findReturnedPlants();
         model.addAttribute("plants", plants);
         return "dashboard/home";
+    }
+    @PostMapping("/tasks")
+    public String createMaintenanceTask(Model model, MaintenanceTaskDTO task) throws PlantNotFoundException {
+        System.out.println("task: "+task);
+        model.addAttribute("task",task);
+        return "dashboard/newtask";
     }
 }
