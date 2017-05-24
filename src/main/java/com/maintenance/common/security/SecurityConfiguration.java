@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import javax.servlet.http.HttpServletResponse;
@@ -50,6 +51,11 @@ public class SecurityConfiguration {
                     .authenticationEntryPoint((req,res,exc) ->
                         res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You don't have anything to see here"));
             http.headers().frameOptions().sameOrigin();
+            //Thymeleaf dashboard
+//            http.csrf().requireCsrfProtectionMatcher(
+//                    new AntPathRequestMatcher("**/dashboard/login")).and().authorizeRequests()
+//                    .antMatchers("/dashboard/").hasRole("admin").and().formLogin()
+//                    .defaultSuccessUrl("/dashboard").loginPage("/login").and().logout().permitAll();
         }
     }
 }
