@@ -2,7 +2,9 @@ package com.maintenance.works.web.controller;
 
 import com.maintenance.common.application.dto.PlantNotFoundException;
 import com.maintenance.inventory.application.dto.PlantInventoryItemDTO;
+import com.maintenance.inventory.application.dto.PlantReservationDTO;
 import com.maintenance.inventory.domain.model.PlantInventoryItem;
+import com.maintenance.inventory.domain.model.PlantReservation;
 import com.maintenance.works.application.dto.MaintenanceTaskDTO;
 import com.maintenance.works.application.service.MaintenanceService;
 import com.maintenance.works.domain.model.MaintenanceTask;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -37,10 +40,19 @@ public class MaintenanceController {
         model.addAttribute("plants", plants);
         return "dashboard/home";
     }
-    @PostMapping("/tasks")
-    public String createMaintenanceTask(Model model, MaintenanceTaskDTO task) throws PlantNotFoundException {
-        System.out.println("task: "+task);
-        model.addAttribute("task",task);
+    @GetMapping("/tasks/new")
+    public String createMaintenanceTaskForm(Model model, PlantInventoryItemDTO plant) throws PlantNotFoundException {
+        System.out.println("plant: "+plant);
+        PlantReservationDTO reservationDTO = new PlantReservationDTO();
+        model.addAttribute("plant",plant);
+        model.addAttribute("reservation",reservationDTO);
         return "dashboard/newtask";
     }
+
+    @PostMapping("/tasks")
+    public String createMaintenanceTask(Model model, @RequestParam Map<String,String> requestParams) {
+        System.out.println("requestParams: "+requestParams);
+        return "dashboard/home";
+    }
+
 }

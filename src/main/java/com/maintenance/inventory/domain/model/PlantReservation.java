@@ -17,7 +17,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor(staticName = "of")
 public class PlantReservation {
     @Id
-    String id;
+    String _id;
 
     @ManyToOne
     PlantInventoryItem plant;
