@@ -6,14 +6,17 @@ import com.maintenance.inventory.application.dto.PlantReservationDTO;
 import com.maintenance.inventory.domain.model.PlantInventoryItem;
 import com.maintenance.inventory.domain.model.PlantReservation;
 import com.maintenance.works.application.dto.MaintenanceTaskDTO;
+import com.maintenance.works.application.dto.MaintenanceTaskReservationDTO;
 import com.maintenance.works.application.service.MaintenanceService;
 import com.maintenance.works.domain.model.MaintenanceTask;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Entity;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
@@ -50,9 +53,18 @@ public class MaintenanceController {
     }
 
     @PostMapping("/tasks")
-    public String createMaintenanceTask(Model model, @RequestParam Map<String,String> requestParams) {
-        System.out.println("requestParams: "+requestParams);
+    public String createMaintenanceTask(Model model, @ModelAttribute MaintenanceTaskReservationDTO myEntity) {
+        System.out.println("reservationDTO: "+myEntity);
+
+
+
         return "dashboard/home";
     }
+
+//    @ModelAttribute(value = "myEntity")
+//    public MaintenanceTaskReservationDTO newEntity()
+//    {
+//        return new MaintenanceTaskReservationDTO();
+//    }
 
 }
