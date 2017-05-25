@@ -22,6 +22,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -50,11 +51,24 @@ public class MaintenanceController {
         return "dashboard/login";
     }
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String getReturnedPlants(Model model) {
         List<PlantInventoryItemDTO> plants = maintenanceService.findReturnedPlants();
+        List<PlantInventoryItemDTO> serviceables = new ArrayList<>();
+        List<PlantInventoryItemDTO> unServiceables = new ArrayList<>();
+        for (PlantInventoryItemDTO dto: plants) {
+            switch (dto.getEquipmentCondition()) {
+                case SERVICEABLE:
+                    serviceables.add(dto);
+                    break;
+                default:
+                    unServiceables.add(dto);
+                    break;
+            }
+        }
         System.out.println("the plants: "+plants);
-        model.addAttribute("plants", plants);
+        model.addAttribute("plants", serviceables);
+        model.addAttribute("repairs", unServiceables);
         return "dashboard/home";
     }
     @GetMapping("/tasks/new/{id}")
@@ -67,13 +81,19 @@ public class MaintenanceController {
         return "dashboard/newtask";
     }
 
-    @PostMapping("/tasks")
+    @GetMapping("/tasks")
     public String createMaintenanceTask(Model model, @ModelAttribute MaintenanceTaskReservationDTO myEntity) {
         System.out.println("reservationDTO: "+myEntity);
 
-        MaintenanceTaskDTO dto = maintenanceService.createMaintenanceTask(myEntity);
+        maintenanceService.createMaintenanceTask(myEntity);
 
-        return "redirect:/dashboard/tasks/" + dto.get_id();
+        return "forward:/dashboard/";
+    }
+
+    @GetMapping("/tasks/complete/{id}")
+    public String completeMaintenanceTask(Model model, PlantInventoryItemDTO plant, @PathVariable String id) throws PlantNotFoundException {
+        maintenanceService.completeMaintenanceTask(id);
+        return "forward:/dashboard/";
     }
 
     @ModelAttribute(value = "myEntity")

@@ -119,4 +119,20 @@ public class MaintenanceService {
         //save maintenancetask
         return taskAssembler.toResource(taskRepository.save(task));
     }
+
+    public void completeMaintenanceTask (String plantId) {
+        PlantInventoryItem item = itemRepository.findOne(plantId);
+        item = PlantInventoryItem.of(
+                plantId,
+                item.getSerialNumber(),
+                EquipmentCondition.SERVICEABLE,
+                item.getPlantInfo(),
+                item.getPlantStatus()
+        );
+        //change equipmentcondition of plant
+        restTemplate.postForObject(
+                "http://localhost:8080/api/inventory/plants/{id}/returned/serviceable",
+                plantId,PlantInventoryItemDTO.class,plantId);
+        itemRepository.save(item);
+    }
 }

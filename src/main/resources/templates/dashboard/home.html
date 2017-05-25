@@ -8,44 +8,83 @@
 <body>
 
 <div class="container">
-    <div class="panel panel-default">
-        <div class="panel-heading">List of Plants</div>
-        <div class="panel-body">
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-heading">List of Plants</div>
 
-            <table class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                    <th>Serial Number</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Equipment Condition</th>
-                    <th>Plant Status</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="table-row" th:each="p : ${plants}">
-                    <td th:text="${p.serialNumber}"></td>
-                    <td th:text="${p.plantInfo.name}"></td>
-                    <td th:text="${p.plantInfo.description}"></td>
-                    <td th:text="${p.equipmentCondition}"></td>
-                    <td th:text="${p.plantStatus}"></td>
-                    <td>
-                        <form th:action="@{/dashboard/tasks/new/} + ${p._id}" th:object="${plant}" method="get">
-                            <input type="hidden" name="_id" th:value="${p._id}" th:text="${p._id}"/>
-                            <input type="hidden" name="serialNumber" th:value="${p.serialNumber}"/>
-                            <input type="hidden" name="plantInfo._id" th:value="${p.plantInfo._id}"/>
-                            <input type="hidden" name="plantInfo.name" th:value="${p.plantInfo.name}"/>
-                            <input type="hidden" name="plantInfo.description" th:value="${p.plantInfo.description}"/>
-                            <input type="hidden" name="plantInfo.price" th:value="${p.plantInfo.price}"/>
-                            <input type="hidden" name="equipmentCondition" th:value="${p.equipmentCondition}"/>
-                            <input type="hidden" name="plantStatus" th:value="${p.plantStatus}"/>
-                            <button class="btn btn-default" type="submit">Create Maintenance Task</button>
-                        </form>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <div class="panel-body">
+                <p><b>Serviceable Plants</b></p>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Serial Number</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Equipment Condition</th>
+                        <th>Plant Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="table-row" th:each="p : ${plants}">
+                        <td th:text="${p.serialNumber}"></td>
+                        <td th:text="${p.plantInfo.name}"></td>
+                        <td th:text="${p.plantInfo.description}"></td>
+                        <td th:text="${p.equipmentCondition}"></td>
+                        <td th:text="${p.plantStatus}"></td>
+                        <td>
+                            <form th:action="@{/dashboard/tasks/new/} + ${p._id}" th:object="${plant}" method="get">
+                                <input type="hidden" name="_id" th:value="${p._id}"/>
+                                <input type="hidden" name="serialNumber" th:value="${p.serialNumber}"/>
+                                <input type="hidden" name="plantInfo._id" th:value="${p.plantInfo._id}"/>
+                                <input type="hidden" name="plantInfo.name" th:value="${p.plantInfo.name}"/>
+                                <input type="hidden" name="plantInfo.description" th:value="${p.plantInfo.description}"/>
+                                <input type="hidden" name="plantInfo.price" th:value="${p.plantInfo.price}"/>
+                                <input type="hidden" name="equipmentCondition" th:value="${p.equipmentCondition}"/>
+                                <input type="hidden" name="plantStatus" th:value="${p.plantStatus}"/>
+                                <button class="btn btn-default" type="submit">Create Maintenance Task</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <p><b>Plants Under Repair</b></p>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <th>Serial Number</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Equipment Condition</th>
+                        <th>Plant Status</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="table-row" th:each="p : ${repairs}">
+                        <td th:text="${p.serialNumber}"></td>
+                        <td th:text="${p.plantInfo.name}"></td>
+                        <td th:text="${p.plantInfo.description}"></td>
+                        <td th:text="${p.equipmentCondition}"></td>
+                        <td th:text="${p.plantStatus}"></td>
+                        <td>
+                            <form th:action="@{/dashboard/tasks/complete/} + ${p._id}" th:object="${plant}" method="get">
+                                <input type="hidden" name="_id" th:value="${p._id}"/>
+                                <input type="hidden" name="serialNumber" th:value="${p.serialNumber}"/>
+                                <input type="hidden" name="plantInfo._id" th:value="${p.plantInfo._id}"/>
+                                <input type="hidden" name="plantInfo.name" th:value="${p.plantInfo.name}"/>
+                                <input type="hidden" name="plantInfo.description" th:value="${p.plantInfo.description}"/>
+                                <input type="hidden" name="plantInfo.price" th:value="${p.plantInfo.price}"/>
+                                <input type="hidden" name="equipmentCondition" th:value="${p.equipmentCondition}"/>
+                                <input type="hidden" name="plantStatus" th:value="${p.plantStatus}"/>
+                                <button class="btn btn-default" type="submit">Complete Maintenance Task</button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
