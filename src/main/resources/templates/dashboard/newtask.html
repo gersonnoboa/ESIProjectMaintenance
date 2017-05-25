@@ -11,7 +11,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">Create a new Maintenance Task</div>
         <div class="panel-body">
-            <form class="form-horizontal" th:object="${myEntity}" th:method="get" th:action="@{/dashboard/tasks}">
+            <form class="form-horizontal" th:object="${myEntity}" th:method="get" th:action="@{/tasks}">
                 <input type="hidden" name="plant._id" th:value="${plant._id}"/>
                 <input type="hidden" name="plant.equipmentCondition" th:value="${plant.equipmentCondition}"/>
                 <input type="hidden" name="plant.plantStatus" th:value="${plant.plantStatus}"/>

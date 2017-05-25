@@ -33,7 +33,7 @@
                         <td th:text="${p.equipmentCondition}"></td>
                         <td th:text="${p.plantStatus}"></td>
                         <td>
-                            <form th:action="@{/dashboard/tasks/new/} + ${p._id}" th:object="${plant}" method="get">
+                            <form th:action="@{/tasks/new/} + ${p._id}" th:object="${plant}" method="get">
                                 <input type="hidden" name="_id" th:value="${p._id}"/>
                                 <input type="hidden" name="serialNumber" th:value="${p.serialNumber}"/>
                                 <input type="hidden" name="plantInfo._id" th:value="${p.plantInfo._id}"/>
@@ -69,7 +69,7 @@
                         <td th:text="${p.equipmentCondition}"></td>
                         <td th:text="${p.plantStatus}"></td>
                         <td>
-                            <form th:action="@{/dashboard/tasks/complete/} + ${p._id}" th:object="${plant}" method="get">
+                            <form th:action="@{/tasks/complete/} + ${p._id}" th:object="${plant}" method="get">
                                 <input type="hidden" name="_id" th:value="${p._id}"/>
                                 <input type="hidden" name="serialNumber" th:value="${p.serialNumber}"/>
                                 <input type="hidden" name="plantInfo._id" th:value="${p.plantInfo._id}"/>
