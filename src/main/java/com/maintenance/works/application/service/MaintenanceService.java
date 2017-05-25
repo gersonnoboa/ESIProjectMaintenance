@@ -2,10 +2,15 @@ package com.maintenance.works.application.service;
 
 import com.maintenance.common.domain.model.BusinessPeriod;
 import com.maintenance.inventory.application.dto.PlantInventoryItemDTO;
+import com.maintenance.inventory.application.service.PlantInventoryEntryAssembler;
 import com.maintenance.inventory.application.service.PlantInventoryItemAssembler;
 import com.maintenance.inventory.domain.model.EquipmentCondition;
+import com.maintenance.inventory.domain.model.PlantInventoryEntry;
 import com.maintenance.inventory.domain.model.PlantInventoryItem;
 import com.maintenance.inventory.domain.model.PlantReservation;
+import com.maintenance.inventory.domain.repository.PlantInventoryEntryRepository;
+import com.maintenance.inventory.domain.repository.PlantInventoryItemRepository;
+import com.maintenance.inventory.domain.repository.PlantReservationRepository;
 import com.maintenance.inventory.infrastructure.PlantReservationIdentifierFactory;
 import com.maintenance.works.application.dto.MaintenanceTaskDTO;
 import com.maintenance.works.application.dto.MaintenanceTaskReservationDTO;
@@ -41,7 +46,19 @@ public class MaintenanceService {
     PlantInventoryItemAssembler itemAssembler;
 
     @Autowired
+    PlantInventoryEntryAssembler entryAssembler;
+
+    @Autowired
     MaintenanceTaskRepository taskRepository;
+
+    @Autowired
+    PlantReservationRepository reservationRepository;
+
+    @Autowired
+    PlantInventoryEntryRepository entryRepository;
+
+    @Autowired
+    PlantInventoryItemRepository itemRepository;
 
     @Autowired
     MaintenanceTaskAssembler taskAssembler;
@@ -65,9 +82,14 @@ public class MaintenanceService {
     }
 
     public MaintenanceTaskDTO createMaintenanceTask(MaintenanceTaskReservationDTO dto) {
+        System.out.println("dto: "+dto);
+
+        PlantInventoryEntry entry = entryAssembler.toResource(dto.getPlant().getPlantInfo());
+        PlantInventoryItem item = itemAssembler.toResource(dto.getPlant());
+
         PlantReservation plantReservation = PlantReservation.of(
                 reservationIdentifierFactory.nextPlantReservationId(),
-                itemAssembler.toResource(dto.getPlant()),
+                item,
                 BusinessPeriod.of(dto.getSchedule().getStartDate(),dto.getSchedule().getEndDate())
         );
 
@@ -82,8 +104,11 @@ public class MaintenanceService {
         //change equipmentcondition of plant
         restTemplate.postForObject(
                 "http://localhost:8080/api/inventory/plants/{id}/returned/maintenance",
-                null,PlantInventoryItemDTO.class,dto.getPlant().get_id());
+                dto.getPlant().get_id(),PlantInventoryItemDTO.class,dto.getPlant().get_id());
 
+        entryRepository.save(entry);
+        itemRepository.save(item);
+        reservationRepository.save(plantReservation);
         //save maintenancetask
         return taskAssembler.toResource(taskRepository.save(task));
     }
