@@ -85,7 +85,14 @@ public class MaintenanceService {
         System.out.println("dto: "+dto);
 
         PlantInventoryEntry entry = entryAssembler.toResource(dto.getPlant().getPlantInfo());
-        PlantInventoryItem item = itemAssembler.toResource(dto.getPlant());
+        PlantInventoryItem item = PlantInventoryItem.of(
+                dto.getPlant().get_id(),
+                dto.getPlant().getSerialNumber(),
+                EquipmentCondition.UNSERVICEABLE_REPAIRABLE,
+                entry,
+                dto.getPlant().getPlantStatus()
+        );
+
 
         PlantReservation plantReservation = PlantReservation.of(
                 reservationIdentifierFactory.nextPlantReservationId(),
