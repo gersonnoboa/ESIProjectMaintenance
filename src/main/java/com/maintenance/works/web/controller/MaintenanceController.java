@@ -31,7 +31,7 @@ import java.util.Optional;
  * Created by gkgranada on 24/05/2017.
  */
 @Controller
-@RequestMapping("/dashboard")
+@RequestMapping("/")
 public class MaintenanceController {
 
     @Autowired
@@ -51,6 +51,7 @@ public class MaintenanceController {
         return "dashboard/login";
     }
 
+
     @GetMapping("/")
     public String getReturnedPlants(Model model) {
         List<PlantInventoryItemDTO> plants = maintenanceService.findReturnedPlants();
@@ -69,7 +70,7 @@ public class MaintenanceController {
         System.out.println("the plants: "+plants);
         model.addAttribute("plants", serviceables);
         model.addAttribute("repairs", unServiceables);
-        return "dashboard/home";
+        return "/dashboard/home";
     }
     @GetMapping("/tasks/new/{id}")
     public String createMaintenanceTaskForm(Model model, PlantInventoryItemDTO plant, @PathVariable String id) throws PlantNotFoundException {
@@ -78,7 +79,7 @@ public class MaintenanceController {
         plant.set_id(id);
         System.out.println("plant: "+plant);
         model.addAttribute("plant",plant);
-        return "dashboard/newtask";
+        return "/dashboard/newtask";
     }
 
     @GetMapping("/tasks")
@@ -87,13 +88,13 @@ public class MaintenanceController {
 
         maintenanceService.createMaintenanceTask(myEntity);
 
-        return "forward:/dashboard/";
+        return "forward:/";
     }
 
     @GetMapping("/tasks/complete/{id}")
     public String completeMaintenanceTask(Model model, PlantInventoryItemDTO plant, @PathVariable String id) throws PlantNotFoundException {
         maintenanceService.completeMaintenanceTask(id);
-        return "forward:/dashboard/";
+        return "forward:/";
     }
 
     @ModelAttribute(value = "myEntity")
