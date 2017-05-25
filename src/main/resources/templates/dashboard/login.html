@@ -4,13 +4,14 @@
         <title> Welcome to Rentit Maintenance System </title>
     </head>
     <body>
-        <p th:if="${param.error}">
-            Bad Credentials
-        </p>
-        <form th:action="@{/dashboard/home}" method="POST">
-            User Name : <input type="text" name="username"/> <br/><br/>
-            Password: <input type="password" name="password"/> <br/><br/>
-            <input type="submit" value="Login"/>
+        <h1>Login page</h1>
+        <p th:if="${loginError}" class="error">Wrong user or password</p>
+        <form th:action="@{/dashboard/login.html}" method="post">
+            <label for="username">Username</label>:
+            <input type="text" id="username" name="username" autofocus="autofocus" /> <br />
+            <label for="password">Password</label>:
+            <input type="password" id="password" name="password" /> <br />
+            <input type="submit" value="Log in" />
         </form>
     </body>
 </html>

@@ -52,10 +52,13 @@ public class SecurityConfiguration {
                         res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "You don't have anything to see here"));
             http.headers().frameOptions().sameOrigin();
             //Thymeleaf dashboard
-//            http.csrf().requireCsrfProtectionMatcher(
-//                    new AntPathRequestMatcher("**/dashboard/login")).and().authorizeRequests()
-//                    .antMatchers("/dashboard/").hasRole("admin").and().formLogin()
-//                    .defaultSuccessUrl("/dashboard").loginPage("/login").and().logout().permitAll();
+            http
+                    .formLogin()
+                    .loginPage("/dashboard/login.html")
+                    .failureUrl("/dashboard/error.html")
+                    .and()
+                    .logout()
+                    .logoutSuccessUrl("/dashboard/login.html");
         }
     }
 }
