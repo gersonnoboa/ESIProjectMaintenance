@@ -1,5 +1,6 @@
 package com.maintenance.inventory.application.dto;
 
+import com.maintenance.common.application.dto.BusinessPeriodDTO;
 import com.maintenance.common.domain.model.BusinessPeriod;
 import com.maintenance.inventory.domain.model.PlantInventoryItem;
 import lombok.Data;
@@ -13,5 +14,5 @@ public class PlantReservationDTO extends ResourceSupport {
 
     String _id;
     PlantInventoryItemDTO plant;
-    BusinessPeriod schedule;
+    BusinessPeriodDTO schedule;
 }

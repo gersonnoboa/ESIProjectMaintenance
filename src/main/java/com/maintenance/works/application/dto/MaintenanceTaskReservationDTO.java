@@ -14,6 +14,7 @@ import java.math.BigDecimal;
  */
 @Data
 public class MaintenanceTaskReservationDTO {
+
     PlantInventoryItemDTO plant;
     String description;
     BusinessPeriodDTO schedule;

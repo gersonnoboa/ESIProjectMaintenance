@@ -14,11 +14,11 @@
             <form class="form-horizontal" th:object="${myEntity}" th:method="post" th:action="@{/dashboard/tasks}">
                 <div class="form-group">
                     <div class="col-sm-4"><b>Name</b></div>
-                    <div class="col-sm-8"><input id="plant.name" name="plant.name" type="hidden" th:value="${plant.name}" th:text="${plant.name}"/></div>
+                    <div class="col-sm-8"><input id="plant.plantInfo.name" name="plant.plantInfo.name" type="hidden" th:value="${plant.plantInfo.name}" th:text="${plant.plantInfo.name}"/></div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-4"><b>Plant Description</b></div>
-                    <div class="col-sm-8"><input id="plant.description" name="plant.description" type="hidden" th:value="${plant.description}" th:text="${plant.description}"/></div>
+                    <div class="col-sm-8"><input id="plant.plantInfo.description" name="plant.description" type="hidden" th:value="${plant.plantInfo.description}" th:text="${plant.plantInfo.description}"/></div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-4"><b>Start date</b></div>
@@ -36,9 +36,9 @@
                     <div class="col-sm-4"><b>Type of Work</b></div>
                     <div class="col-sm-8">
                         <select id="type_of_work" name="Type of Work" th:field="*{type_of_work}">
-                            <option value="preventive">Preventive</option>
-                            <option value="corrective">Corrective</option>
-                            <option value="operative">Operative</option>
+                            <option value="PREVENTIVE">Preventive</option>
+                            <option value="CORRECTIVE">Corrective</option>
+                            <option value="OPERATIVE">Operative</option>
                         </select>
                     </div>
                 </div>

@@ -13,7 +13,7 @@ import javax.persistence.*;
 @AllArgsConstructor(staticName = "of")
 public class PlantInventoryItem {
     @Id
-    String id;
+    String _id;
     String serialNumber;
 
     @Enumerated(EnumType.STRING)

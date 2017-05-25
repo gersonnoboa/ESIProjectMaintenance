@@ -1,5 +1,7 @@
 package com.maintenance.inventory.application.dto;
 
+import com.maintenance.inventory.domain.model.EquipmentCondition;
+import com.maintenance.inventory.domain.model.PlantInventoryItemStatus;
 import lombok.Data;
 import org.springframework.hateoas.ResourceSupport;
 
@@ -11,8 +13,8 @@ import java.math.BigDecimal;
 @Data
 public class PlantInventoryItemDTO extends ResourceSupport {
     String _id;
-    String name;
-    String description;
-    BigDecimal price;
-    String plant_href;
+    String serialNumber;
+    EquipmentCondition equipmentCondition;
+    PlantInventoryEntryDTO plantInfo;
+    PlantInventoryItemStatus plantStatus;
 }

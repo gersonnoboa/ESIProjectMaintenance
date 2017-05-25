@@ -9,13 +9,17 @@ import com.maintenance.works.application.dto.MaintenanceTaskDTO;
 import com.maintenance.works.application.dto.MaintenanceTaskReservationDTO;
 import com.maintenance.works.application.service.MaintenanceService;
 import com.maintenance.works.domain.model.MaintenanceTask;
+import com.maintenance.works.domain.model.TypeOfWork;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.client.support.BasicAuthorizationInterceptor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.Entity;
 import java.time.LocalDate;
 import java.util.List;
@@ -30,7 +34,16 @@ import java.util.Optional;
 public class MaintenanceController {
 
     @Autowired
+    RestTemplate restTemplate;
+
+    @Autowired
     MaintenanceService maintenanceService;
+
+    @PostConstruct
+    private void setUpAuth() {
+        restTemplate.getInterceptors().add(
+                new BasicAuthorizationInterceptor("user2", "user2"));
+    }
 
     @GetMapping("/login")
     public String getLoginForm(Model model) {
@@ -40,15 +53,17 @@ public class MaintenanceController {
     @GetMapping("/home")
     public String getReturnedPlants(Model model) {
         List<PlantInventoryItemDTO> plants = maintenanceService.findReturnedPlants();
+        System.out.println("the plants: "+plants);
         model.addAttribute("plants", plants);
         return "dashboard/home";
     }
-    @GetMapping("/tasks/new")
-    public String createMaintenanceTaskForm(Model model, PlantInventoryItemDTO plant) throws PlantNotFoundException {
+    @GetMapping("/tasks/new/{id}")
+    public String createMaintenanceTaskForm(Model model, PlantInventoryItemDTO plant, @PathVariable String id) throws PlantNotFoundException {
+
+        System.out.println("id: "+id);
+        plant.set_id(id);
         System.out.println("plant: "+plant);
-        PlantReservationDTO reservationDTO = new PlantReservationDTO();
         model.addAttribute("plant",plant);
-        model.addAttribute("reservation",reservationDTO);
         return "dashboard/newtask";
     }
 
@@ -56,15 +71,15 @@ public class MaintenanceController {
     public String createMaintenanceTask(Model model, @ModelAttribute MaintenanceTaskReservationDTO myEntity) {
         System.out.println("reservationDTO: "+myEntity);
 
+        MaintenanceTaskDTO dto = maintenanceService.createMaintenanceTask(myEntity);
 
-
-        return "dashboard/home";
+        return "redirect:/dashboard/tasks/" + dto.get_id();
     }
 
-//    @ModelAttribute(value = "myEntity")
-//    public MaintenanceTaskReservationDTO newEntity()
-//    {
-//        return new MaintenanceTaskReservationDTO();
-//    }
+    @ModelAttribute(value = "myEntity")
+    public MaintenanceTaskReservationDTO newEntity()
+    {
+        return new MaintenanceTaskReservationDTO();
+    }
 
 }
