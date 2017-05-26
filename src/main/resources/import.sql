@@ -6,7 +6,9 @@ insert into authorities (username, authority) values ('admin', 'ROLE_ADMIN');
 insert into users (username, password, enabled) values ('siteengr', 'siteengr', true);
 insert into users (username, password, enabled) values ('worksengr', 'worksengr', true);
 insert into users (username, password, enabled) values ('supervisor', 'supervisor', true);
+insert into users (username, password, enabled) values ('maintenance', 'maintenance', true);
 insert into authorities (username, authority) values ('siteengr', 'ROLE_SITE_ENGINEER');
 insert into authorities (username, authority) values ('worksengr', 'ROLE_WORKS_ENGINEER');
 insert into authorities (username, authority) values ('supervisor', 'ROLE_SITE_ENGINEER');
 insert into authorities (username, authority) values ('supervisor', 'ROLE_WORKS_ENGINEER');
+insert into authorities (username, authority) values ('maintenance', 'ROLE_MAINTENANCE_TL')
