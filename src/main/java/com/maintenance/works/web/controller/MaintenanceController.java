@@ -70,7 +70,7 @@ public class MaintenanceController {
         System.out.println("the plants: "+plants);
         model.addAttribute("plants", serviceables);
         model.addAttribute("repairs", unServiceables);
-        return "/dashboard/home";
+        return "dashboard/home";
     }
     @GetMapping("/tasks/new/{id}")
     public String createMaintenanceTaskForm(Model model, PlantInventoryItemDTO plant, @PathVariable String id) throws PlantNotFoundException {
@@ -79,7 +79,7 @@ public class MaintenanceController {
         plant.set_id(id);
         System.out.println("plant: "+plant);
         model.addAttribute("plant",plant);
-        return "/dashboard/newtask";
+        return "dashboard/newtask";
     }
 
     @GetMapping("/tasks")
